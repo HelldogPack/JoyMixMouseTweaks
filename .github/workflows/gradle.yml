@@ -1,0 +1,32 @@
+name: Java CI with Gradle
+
+on:
+  push:
+    paths-ignore:
+      - '*.md'
+      - '*.txt'
+  pull_request:
+    paths-ignore:
+      - '*.md'
+      - '*.txt'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: adopt
+          java-version: 17
+      - name: Build (Forge)
+        run: ./gradlew build
+      - name: Build (Fabric)
+        run: ./gradlew --build-file build-fabric.gradle build
+      - uses: actions/upload-artifact@v2
+        with:
+          name: MouseTweaks
+          path: build/libs
+          if-no-files-found: error

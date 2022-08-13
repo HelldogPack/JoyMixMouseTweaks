@@ -23,8 +23,6 @@ jobs:
           java-version: 8
       - name: Build (Forge)
         run: ./gradlew build
-      - name: Build (Fabric)
-        run: ./gradlew --build-file build-fabric.gradle build
       - uses: actions/upload-artifact@v2
         with:
           name: MouseTweaks
